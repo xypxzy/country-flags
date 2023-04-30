@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import {DataTypes} from "../types/types.ts";
+import {ICountry} from "../types/types.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {neighborsSelector} from "../store/details/details-selector.ts";
+import {useEffect} from "react";
+import {loadNeighborsByBorder} from "../store/details/details-actions.ts";
 
 const Wrapper = styled.section`
   margin-top: 3rem;
@@ -89,7 +93,7 @@ const Tag = styled.span`
 
 
 
-export const Info = (props: DataTypes) => {
+export const Info = (props: ICountry) => {
   const {
     name,
     nativeName,
@@ -104,6 +108,17 @@ export const Info = (props: DataTypes) => {
     borders = [],
     push,
   } = props;
+
+  const dispatch = useDispatch();
+  const neighbors = useSelector(neighborsSelector);
+
+  useEffect(()=> {
+    if(borders.length) {
+      // @ts-ignore
+      dispatch(loadNeighborsByBorder(borders));
+    }
+  }, [borders, dispatch])
+
 
   return (
     <Wrapper>
@@ -132,19 +147,19 @@ export const Info = (props: DataTypes) => {
           <List>
             <ListItem>
               <b>Top Level Domain</b>{' '}
-              {topLevelDomain.map((d) => (
+              {topLevelDomain && topLevelDomain.map((d) => (
                 <span key={d}>{d}</span>
               ))}
             </ListItem>
             <ListItem>
               <b>Currency</b>{' '}
-              {currencies.map((c) => (
+              {currencies && currencies.map((c) => (
                 <span key={c.code}>{c.name} </span>
               ))}
             </ListItem>
             <ListItem>
               <b>Top Level Domain</b>{' '}
-              {languages.map((l) => (
+              {languages && languages.map((l) => (
                 <span key={l.name}>{l.name}</span>
               ))}
             </ListItem>
@@ -156,9 +171,9 @@ export const Info = (props: DataTypes) => {
             <span>There is no border countries</span>
           ) : (
             <TagGroup>
-              {[].map((b) => (
-                <Tag key={b} onClick={() => push(`/country/${b}`)}>
-                  {b}
+              {neighbors.map((country) => (
+                <Tag key={country} onClick={() => push(`/country/${country}`)}>
+                  {country}
                 </Tag>
               ))}
             </TagGroup>

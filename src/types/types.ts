@@ -1,4 +1,4 @@
-export interface DataTypes {
+export interface ICountry {
     name: string
     topLevelDomain: string[]
     alpha2Code: string

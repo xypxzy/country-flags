@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import { IoSearch } from 'react-icons/io5';
+import {useDispatch, useSelector} from "react-redux";
+import {controlSearchSelectors} from "../store/controls/control-selectors.ts";
+import {setSearch} from "../store/controls/controls-actions.ts";
+import React from "react";
 
 const InputContainer = styled.label`
   background-color: var(--colors-ui-base);
@@ -29,11 +33,17 @@ const Input = styled.input.attrs({
   background-color: var(--colors-ui-base);
 `;
 
-export const Search = ({ search, setSearch }) => {
+export const Search = () => {
+    const dispatch = useDispatch();
+    const search = useSelector(controlSearchSelectors);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setSearch(e.target.value));
+    }
     return (
         <InputContainer>
             <IoSearch />
-            <Input onChange={(e) => setSearch(e.target.value)} value={search}/>
+            <Input onChange={(e) => handleSearch(e)} value={search}/>
         </InputContainer>
     );
 };

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {ReactNode} from "react";
 
 const Wrapper = styled.section`
-  width: 100%;
   padding: 2rem 0;
 
   display: grid;
