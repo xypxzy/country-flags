@@ -28,6 +28,7 @@ export const Details = () => {
             <Button onClick={() => navigate(-1)}>
                 <IoArrowBack /> Back
             </Button>
+            <>p</>
             {status === 'loading' && <h2>Loading....</h2>}
             {status === 'rejected' && <h2>{error}</h2>}
             {currentCountry && <Info  {...currentCountry} push={navigate}/>}
