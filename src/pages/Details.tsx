@@ -23,7 +23,6 @@ export const Details = () => {
         }
     }, [name,dispatch])
 
-    // @ts-ignore
     return (
         <div>
             <Button onClick={() => navigate(-1)}>
@@ -31,7 +30,7 @@ export const Details = () => {
             </Button>
             {status === 'loading' && <h2>Loading....</h2>}
             {status === 'rejected' && <h2>{error}</h2>}
-            {currentCountry && <Info push={navigate} {...currentCountry} />}
+            {currentCountry && <Info  {...currentCountry} push={navigate}/>}
         </div>
     );
 };

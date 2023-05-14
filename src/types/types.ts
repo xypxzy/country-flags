@@ -1,3 +1,5 @@
+import {NavigateFunction} from "react-router";
+
 export interface ICountry {
     name: string
     topLevelDomain: string[]
@@ -25,7 +27,7 @@ export interface ICountry {
     regionalBlocs: IRegionalBloc[]
     cioc: string
     independent: boolean
-    push: (s: string) => void
+    push: NavigateFunction
 }
 
 export interface IFlags {
